@@ -3,7 +3,11 @@
 </template>
 
 <script>
-// import { computed, reactive, ref } from 'vue'
+export default {
+  setup() {
+    return {}
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

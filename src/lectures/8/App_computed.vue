@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h2>{{ teacher.name }}</h2>
-    <h3>강의가 있습니까?</h3>
-    <!-- <p>{{ teacher.lectures.length > 0 ? '있음O' : '없음 x' }}</p> -->
-    <p>{{ hasLectur }}</p>
-    <p>{{ existLectuer() }}</p>
-    <!-- 메서드이기 때문에 ()를 넣어주어야함 -->
-    <button v-on:click="counter++">Counter : {{ counter }}</button>
-    <h2>이름</h2>
+    <h2>Author가 책을 갖고 있나요?</h2>
+    <!-- <p>{{ teacher.lectures.length > 0 ? '예' : '아니오' }}</p> -->
+    <p>{{ hasLecture }}</p>
+    <p>{{ hasLecture }}</p>
+    <p>{{ existLecture() }}</p>
+    <p>{{ existLecture() }}</p>
+    <button v-on:click="counter++">counter: {{ counter }}</button>
     <p>{{ fullName }}</p>
   </div>
 </template>
@@ -17,40 +16,41 @@ import { computed, reactive, ref } from 'vue'
 export default {
   setup() {
     const teacher = reactive({
-      name: '손수연',
+      name: '짐코딩',
       lectures: ['HTML/CSS', 'JavaScript', 'Vue3']
     })
-    const hasLectur = computed(() => {
+
+    const hasLecture = computed(() => {
       console.log('computed')
-      return teacher.lectures.length > 0 ? '있음O' : '없음 x'
+      return teacher.lectures.length ? '있음 🙂' : '없음 🥲'
     })
-    const existLectuer = () => {
+
+    const existLecture = () => {
       console.log('method')
-      return teacher.lectures.length > 0 ? '있음O' : '없음 X'
+      return teacher.lectures.length ? '있음 🙂' : '없음 🥲'
     }
+
     const counter = ref(0)
+
+    console.log('Console 출력: ', hasLecture.value)
+    // hasLecture.value = '값';
 
     const firstName = ref('홍')
     const lastName = ref('길동')
-    // const fullName = computed(() => firstName.value + ' ' + lastName.value)
+
     const fullName = computed({
       get() {
         return firstName.value + ' ' + lastName.value
       },
       set(value) {
+        console.log('value: ', value)
         ;[firstName.value, lastName.value] = value.split(' ')
       }
     })
 
-    console.log('Console 출력: ' + fullName.value)
     fullName.value = '손 수연'
-    return {
-      teacher,
-      hasLectur,
-      existLectuer,
-      counter,
-      fullName
-    }
+
+    return { teacher, hasLecture, existLecture, counter, fullName }
   }
 }
 </script>
