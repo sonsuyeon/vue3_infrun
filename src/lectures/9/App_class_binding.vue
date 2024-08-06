@@ -1,58 +1,47 @@
 <template>
-  <div>
-    <h2>Author가 책을 갖고 있나요?</h2>
-    <!-- <p>{{ teacher.lectures.length > 0 ? '예' : '아니오' }}</p> -->
-    <p>{{ hasLecture }}</p>
-    <p>{{ hasLecture }}</p>
-    <p>{{ existLecture() }}</p>
-    <p>{{ existLecture() }}</p>
-    <button v-on:click="counter++">counter: {{ counter }}</button>
-    <p>{{ fullName }}</p>
+  <div class="text" :class="[isActive ? 'active-class' : 'class', errorClass, classObject]">
+    텍스트 입니다.
   </div>
+  <button v-on:click="toggle">toggle</button>
+  <button v-on:click="hasError = !hasError">toggleError</button>
 </template>
 
 <script>
-import { computed, reactive, ref } from 'vue'
+import { computed } from 'vue'
+import { reactive, ref } from 'vue'
 export default {
   setup() {
-    const teacher = reactive({
-      name: '짐코딩',
-      lectures: ['HTML/CSS', 'JavaScript', 'Vue3']
-    })
+    const isActive = ref(true)
+    const hasError = ref(false)
+    // const classObject = reactive({
+    //   active: true,
+    //   'text-danger': false
+    // })
 
-    const hasLecture = computed(() => {
-      console.log('computed')
-      return teacher.lectures.length ? '있음 🙂' : '없음 🥲'
-    })
-
-    const existLecture = () => {
-      console.log('method')
-      return teacher.lectures.length ? '있음 🙂' : '없음 🥲'
-    }
-
-    const counter = ref(0)
-
-    console.log('Console 출력: ', hasLecture.value)
-    // hasLecture.value = '값';
-
-    const firstName = ref('홍')
-    const lastName = ref('길동')
-
-    const fullName = computed({
-      get() {
-        return firstName.value + ' ' + lastName.value
-      },
-      set(value) {
-        console.log('value: ', value)
-        ;[firstName.value, lastName.value] = value.split(' ')
+    const classObject = computed(() => {
+      return {
+        active: true && true,
+        'text-danger': true && true,
+        'text-blue': true
       }
     })
 
-    fullName.value = '손 수연'
+    const activeClass = ref('active')
+    const errorClass = ref('error')
 
-    return { teacher, hasLecture, existLecture, counter, fullName }
+    const toggle = () => {
+      isActive.value = !isActive.value
+    }
+    return { isActive, toggle, hasError, classObject, activeClass, errorClass }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.active {
+  font-weight: 900;
+}
+.text-danger {
+  color: red;
+}
+</style>
