@@ -1,9 +1,5 @@
 <template>
-  <!-- <div class="text" :class="{ active: isActive, 'text-danger': hasError }">텍스트 입니다.</div> -->
-  <div class="text" :class="classObject">텍스트2 입니다.</div>
-  <div class="text" :class="[isActive ? 'active-class' : 'class', errorClass, classObject]">
-    텍스트2 입니다.
-  </div>
+  <div class="text" :class="classObject">텍스트 입니다.</div>
   <button v-on:click="toggle">toggle</button>
   <button v-on:click="hasError = !hasError">toggleError</button>
 </template>
@@ -23,13 +19,10 @@ export default {
     const classObject = computed(() => {
       return {
         active: true && true,
-        'text-danger': true && true,
-        'text-blue': true
+        'text-danger': true && true
       }
     })
 
-    const activeClass = ref('active')
-    const errorClass = ref('error')
     const toggle = () => {
       isActive.value = !isActive.value
     }
